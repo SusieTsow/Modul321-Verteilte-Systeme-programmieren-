@@ -1,4 +1,17 @@
 services:
+  db:
+    image: mysql:8.4.3
+    ports:
+      - "63306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_USER: example
+      MYSQL_PASSWORD: example
+    volumes:
+      - ./mysql-init:/docker-entrypoint-initdb.d # create a mount for the init script in docker-compose
+      - mysql_data:/var/lib/mysql # create a mount for the data volumes for mysql in docker-compose
+    networks:
+      - m321-network
   backend:
     build:
       context: ./backend
@@ -10,17 +23,12 @@ services:
       - db
     networks:
       - m321-network
-  db:
-    image: mysql:8.4.3
-    ports:
-      - "63306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_USER: example
-      MYSQL_PASSWORD: example
-      MYSQL_DATABASE: example
-    networks:
-      - m321-network
+      - DATABASE_HOST=db
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=example
+      - DATABASE_NAME=chat
+      - DATABASE_PORT=3306
   postgres:
     image: postgres:latest
     container_name: postgres
@@ -52,6 +60,20 @@ services:
     networks:
       - keycloak_network
       - m321-network
+  chat-service:
+    build:
+      context: ./chat-service
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    container_name: chat-service
+    depends_on:
+      - backend
+    networks:
+      - m321-network
+    environment:
+      - DATABASE_HOST=backend
+      - DATABASE_PORT=3000
 volumes:
   mysql_data:
   postgres_data:

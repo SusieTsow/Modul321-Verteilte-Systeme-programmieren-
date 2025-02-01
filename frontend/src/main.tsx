@@ -10,6 +10,7 @@ createRoot(document.getElementById("root")!).render(
     authClient={keycloak}
     initOptions={{
       onLoad: "login-required",
+      checkLoginIframe: false,
     }}
   >
     <StrictMode>

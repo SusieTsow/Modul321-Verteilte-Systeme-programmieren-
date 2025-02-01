@@ -1,0 +1,54 @@
+.appcontainer {
+  padding: 20px;
+}
+
+.chatbox {
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.inputcontainer {
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.sendbutton {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.username {
+  font-weight: bold;
+}
+
+.username-bold {
+  font-weight: bold;
+  margin: 5px;
+}
+
+.messagecontent {
+  margin-left: 5px;
+}
+
+.messagetime {
+  font-size: 12px;
+  color: #777;
+}
